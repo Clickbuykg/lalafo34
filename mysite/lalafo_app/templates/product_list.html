@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Каталог товаров</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0f1020;
+  --card: #1a1c36;
+  --card-2: #22254a;
+  --text: #f2f3ff;
+  --muted: #9a9dc0;
+  --border: #2a2d52;
+  --primary: #7c6cff;
+  --accent: #ff6fa0;
+  --radius: 24px;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: "Inter", system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+a { color: inherit; text-decoration: none; }
+
+.container {
+  width: min(1200px, 100% - 40px);
+  margin-inline: auto;
+  padding: 50px 0 80px;
+}
+
+/* Шапка: заголовок и кнопка создания */
+.page-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 32px;
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  width: fit-content;
+}
+
+.create-btn {
+  padding: 12px 24px;
+  border-radius: 14px;
+  font-weight: 700;
+  color: #fff;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.create-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(124, 108, 255, 0.4);
+}
+
+/* Сетка карточек */
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
+  list-style: none;
+}
+
+/* Карточка товара */
+.product-card {
+  background: var(--card);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 30px rgba(124, 108, 255, 0.15);
+  border-color: var(--primary);
+}
+
+/* Область картинки */
+.product-image-link {
+  display: block;
+  width: 100%;
+  height: 220px;
+  position: relative;
+  background: var(--card-2);
+  overflow: hidden;
+}
+
+.product-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.product-card:hover .product-image {
+  transform: scale(1.04);
+}
+
+.product-no-image {
+  height: 100%;
+  display: grid;
+  place-items: center;
+  color: var(--muted);
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+/* Контентная часть */
+.product-content {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.product-tags {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+.product-tag {
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  background: var(--card-2);
+  color: var(--muted);
+}
+
+.product-tag--orig {
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  color: #fff;
+}
+
+.product-title {
+  font-size: 1.15rem;
+  font-weight: 600;
+  line-height: 1.4;
+  margin-bottom: 16px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  height: 2.8em;
+}
+
+.product-title a:hover {
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Информация внизу карточки */
+.product-meta {
+  margin-top: auto;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+  display: grid;
+  gap: 8px;
+}
+
+.product-meta-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.product-meta-row b {
+  color: var(--text);
+  font-weight: 500;
+}
+
+.product-footer {
+  margin-top: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.product-price {
+  font-size: 1.4rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.product-btn {
+  padding: 10px 16px;
+  background: var(--card-2);
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  transition: 0.2s;
+  border: 1px solid transparent;
+}
+
+.product-card:hover .product-btn {
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  color: #fff;
+}
+
+.empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  color: var(--muted);
+  padding: 80px 20px;
+  background: var(--card);
+  border-radius: var(--radius);
+}
+
+@media (max-width: 600px) {
+  .container { padding: 30px 0 60px; }
+  .products-grid { grid-template-columns: 1fr; }
+  .product-image-link { height: 200px; }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <div class="page-head">
+    <h1>Объявления</h1>
+    <a class="create-btn" href="{% url 'product_create' %}">+ Создать объявление</a>
+  </div>
+
+  <ul class="products-grid">
+    {% for i in products %}
+    <li class="product-card">
+
+      <a class="product-image-link" href="{% url 'product_detail' i.pk %}">
+        {% if i.product_image %}
+          <img class="product-image" src="{{ i.product_image.url }}" alt="{{ i.product_name }}">
+        {% else %}
+          <div class="product-no-image">Нет фото</div>
+        {% endif %}
+      </a>
+
+      <div class="product-content">
+        <div class="product-tags">
+          {% if i.category %}<span class="product-tag">{{ i.category }}</span>{% endif %}
+          {% if i.type %}<span class="product-tag product-tag--orig">Оригинал</span>{% endif %}
+        </div>
+
+        <h3 class="product-title">
+          <a href="{% url 'product_detail' i.pk %}">{{ i.product_name }}</a>
+        </h3>
+
+        <div class="product-meta">
+          <div class="product-meta-row">
+            <span>📍 Город</span>
+            <b>{{ i.city }}</b>
+          </div>
+          <div class="product-meta-row">
+            <span>📅 Дата</span>
+            <b>{{ i.created_date|date:"d.m.Y" }}</b>
+          </div>
+        </div>
+
+        <div class="product-footer">
+          <div class="product-price">{{ i.price }} сом</div>
+          <a class="product-btn" href="{% url 'product_detail' i.pk %}">Смотреть</a>
+        </div>
+      </div>
+
+    </li>
+    {% empty %}
+    <li class="empty">Объявлений пока нет. Нажмите «Создать объявление».</li>
+    {% endfor %}
+  </ul>
+</div>
+
+</body>
+</html>
